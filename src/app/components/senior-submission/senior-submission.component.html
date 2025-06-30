@@ -1,0 +1,64 @@
+<div class="submission-container">
+  <mat-card class="submission-card">
+    <mat-card-header>
+      <mat-card-title>Senior Level Application</mat-card-title>
+      <mat-card-subtitle>Final step of your application</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- If not submitted yet -->
+      <div *ngIf="!submitted">
+        <!-- Show message if looking for job -->
+        <div *ngIf="formData.lookingForJob" class="success-message">
+          <mat-icon class="success-icon">check_circle</mat-icon>
+          <h3>Great! You're looking for a job.</h3>
+          <p>Click the button below to submit your application.</p>
+        </div>
+
+        <!-- Show cover letter field if not looking for job -->
+        <div *ngIf="!formData.lookingForJob">
+          <h3>Cover Letter Required</h3>
+          <p>Since you're not actively looking for a job, please provide a cover letter explaining your interest.</p>
+
+          <form [formGroup]="submissionForm" class="cover-letter-form">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Cover Letter</mat-label>
+              <textarea matInput formControlName="coverLetter" rows="6"
+                placeholder="Write your cover letter here (minimum 140 characters)"></textarea>
+              <mat-hint>Minimum 140 characters required</mat-hint>
+              <mat-error
+                *ngIf="submissionForm.get('coverLetter')?.touched && submissionForm.get('coverLetter')?.errors">
+                {{ getErrorMessage('coverLetter') }}
+              </mat-error>
+            </mat-form-field>
+          </form>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="submit-section">
+          <button mat-raised-button color="primary" class="submit-button" (click)="onSubmitApplication()">
+            Submit Application
+          </button>
+        </div>
+      </div>
+
+      <!-- If submitted -->
+      <div *ngIf="submitted" class="submission-result">
+        <!-- Success message if looking for job -->
+        <div *ngIf="formData.lookingForJob" class="success-submission">
+          <mat-icon class="large-success-icon">check_circle</mat-icon>
+          <h2>Application Submitted Successfully!</h2>
+          <p>Thank you for your application. We will review it and get back to you soon.</p>
+        </div>
+
+        <!-- Show JSON if not looking for job (with cover letter) -->
+        <div *ngIf="!formData.lookingForJob" class="json-display">
+          <h3>Application Data</h3>
+          <mat-card class="json-card">
+            <pre>{{ finalFormData }}</pre>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
