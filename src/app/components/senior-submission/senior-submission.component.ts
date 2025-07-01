@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FormDataService, FormData } from '../../services/form-data.service';
 import { CustomValidators } from '../../validators/custom-validators';
 
@@ -11,13 +12,13 @@ import { CustomValidators } from '../../validators/custom-validators';
 export class SeniorSubmissionComponent implements OnInit {
   submissionForm: FormGroup;
   formData: FormData;
-  showCoverLetterField = false;
   submitted = false;
   finalFormData = '';
 
   constructor(
     private fb: FormBuilder,
-    private formDataService: FormDataService
+    private formDataService: FormDataService,
+    private router: Router
   ) {
     this.submissionForm = this.fb.group({});
     this.formData = this.formDataService.getFormData();
@@ -26,7 +27,6 @@ export class SeniorSubmissionComponent implements OnInit {
   ngOnInit(): void {
     // Check if user was looking for a job
     if (!this.formData.lookingForJob) {
-      this.showCoverLetterField = true;
       this.submissionForm.addControl('coverLetter', this.fb.control('', [
         Validators.required,
         CustomValidators.minLengthValidator(140)
@@ -35,13 +35,12 @@ export class SeniorSubmissionComponent implements OnInit {
   }
 
   onSubmitApplication(): void {
-    if (this.showCoverLetterField && this.submissionForm.invalid) {
+    if (!this.formData.lookingForJob && this.submissionForm.invalid) {
       this.submissionForm.markAllAsTouched();
       return;
     }
 
-    if (this.showCoverLetterField) {
-      // Add cover letter to form data
+    if (!this.formData.lookingForJob) {
       this.formDataService.updateFormData({
         coverLetter: this.submissionForm.get('coverLetter')?.value
       });
@@ -64,5 +63,9 @@ export class SeniorSubmissionComponent implements OnInit {
       }
     }
     return '';
+  }
+
+  backToForm(): void {
+    this.router.navigate(['/']);
   }
 }

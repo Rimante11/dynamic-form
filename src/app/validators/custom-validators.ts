@@ -10,7 +10,7 @@ export class CustomValidators {
     return null;
   }
 
-  // Validator to ensure text doesn't contain the letter 'a'
+  // To ensure text doesn't contain the letter 'a'
   static noLetterAValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
     if (value && typeof value === 'string' && value.toLowerCase().includes('a')) {
@@ -19,7 +19,7 @@ export class CustomValidators {
     return null;
   }
 
-  // Validator for minimum length
+  // For minimum length
   static minLengthValidator(minLength: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;

@@ -1,0 +1,83 @@
+<div class="form-container">
+  <mat-card class="form-card">
+    <mat-card-header>
+      <mat-card-title>Application Form</mat-card-title>
+      <mat-card-subtitle>Please fill out all required fields</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()" class="dynamic-form">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" placeholder="Enter your name">
+          <mat-error *ngIf="dynamicForm.get('name')?.touched && dynamicForm.get('name')?.errors">
+            {{ getErrorMessage('name') }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Surname</mat-label>
+          <input matInput formControlName="surname" placeholder="Enter your surname">
+          <mat-error *ngIf="dynamicForm.get('surname')?.touched && dynamicForm.get('surname')?.errors">
+            {{ getErrorMessage('surname') }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" placeholder="Enter your email">
+          <mat-error *ngIf="dynamicForm.get('email')?.touched && dynamicForm.get('email')?.errors">
+            {{ getErrorMessage('email') }}
+          </mat-error>
+        </mat-form-field>
+
+        <div class="checkbox-field">
+          <mat-checkbox formControlName="lookingForJob">
+            Are you looking for a job?
+          </mat-checkbox>
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>What level of specialist are you?</mat-label>
+          <mat-select formControlName="specialistLevel">
+            <mat-option value="junior">Junior</mat-option>
+            <mat-option value="mid">Mid</mat-option>
+            <mat-option value="senior">Senior</mat-option>
+          </mat-select>
+          <mat-error *ngIf="dynamicForm.get('specialistLevel')?.touched && dynamicForm.get('specialistLevel')?.errors">
+            {{ getErrorMessage('specialistLevel') }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- If Junior -->
+        <mat-form-field appearance="outline" class="full-width" *ngIf="showMathField">
+          <mat-label>What is 2 + 2?</mat-label>
+          <input matInput type="number" formControlName="mathAnswer" placeholder="Enter the answer">
+          <mat-error *ngIf="dynamicForm.get('mathAnswer')?.touched && dynamicForm.get('mathAnswer')?.errors">
+            {{ getErrorMessage('mathAnswer') }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- If Mid -->
+        <mat-form-field appearance="outline" class="full-width" *ngIf="showDescriptionField">
+          <mat-label>Describe yourself</mat-label>
+          <textarea matInput formControlName="description" rows="4"
+            placeholder="Describe yourself without using the letter 'a'"></textarea>
+          <mat-error *ngIf="dynamicForm.get('description')?.touched && dynamicForm.get('description')?.errors">
+            {{ getErrorMessage('description') }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Submit Button -->
+        <div class="submit-section">
+          <button mat-raised-button color="primary" type="submit" class="submit-button">
+            {{ dynamicForm.get('specialistLevel')?.value === 'senior' ? 'Continue to Submission' : 'Submit Application'
+            }}
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

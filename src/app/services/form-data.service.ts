@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 export interface FormData {
   name: string;
@@ -20,13 +20,10 @@ export class FormDataService {
     name: '',
     surname: '',
     email: '',
+    // Default true as per task requirements
     lookingForJob: true,
     specialistLevel: ''
   });
-
-  public formData$: Observable<FormData> = this.formDataSubject.asObservable();
-
-  constructor() { }
 
   updateFormData(data: Partial<FormData>): void {
     const currentData = this.formDataSubject.value;
