@@ -5,7 +5,7 @@ An Angular application featuring a dynamic form with conditional fields, validat
 ## Features
 
 ### Dynamic Form Functionality
-- Required Fields*: Name, Surname, Email with proper validation
+- Required Fields: Name, Surname, Email with proper validation
 - Boolean Option: "Are you looking for a job?" (default: true)
 - Specialist Level Selection: Junior, Mid, Senior (with conditional logic, read bellow)
 
