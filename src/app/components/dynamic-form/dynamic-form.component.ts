@@ -7,9 +7,10 @@ import { CustomValidators } from '../../validators/custom-validators';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
 
 @Component({
-  selector: 'app-dynamic-form',
-  templateUrl: './dynamic-form.component.html',
-  styleUrls: ['./dynamic-form.component.scss']
+    selector: 'app-dynamic-form',
+    templateUrl: './dynamic-form.component.html',
+    styleUrls: ['./dynamic-form.component.scss'],
+    standalone: false
 })
 export class DynamicFormComponent implements OnInit {
   dynamicForm: FormGroup;

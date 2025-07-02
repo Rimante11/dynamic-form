@@ -5,9 +5,10 @@ import { FormDataService, FormData } from '../../services/form-data.service';
 import { CustomValidators } from '../../validators/custom-validators';
 
 @Component({
-  selector: 'app-senior-submission',
-  templateUrl: './senior-submission.component.html',
-  styleUrls: ['./senior-submission.component.scss']
+    selector: 'app-senior-submission',
+    templateUrl: './senior-submission.component.html',
+    styleUrls: ['./senior-submission.component.scss'],
+    standalone: false
 })
 export class SeniorSubmissionComponent implements OnInit {
   submissionForm: FormGroup;
